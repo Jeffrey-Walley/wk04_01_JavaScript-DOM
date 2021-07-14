@@ -1,0 +1,111 @@
+The Document Object Model (DOM) is a JavaScript representation of the HTML document loaded into the browser. The DOM API lets you:
+
+-Find elements (nodes) in the document
+-Edit, add, or remove nodes
+-Attach event handlers that respond to user input
+
+
+*getElementById
+
+Working with Nodes
+
+There are a few different ways to get a node or array of nodes from the document.
+
+getElementById will Get a single node based on id attribute
+
+
+*getElementsByTagName()
+*getElementsByClassName()
+
+Gets an 'array' of nodes based on a tag name or className
+
+
+*querySelector()
+*querySelectorAll()
+
+In practice, these are the only DOM selectors you will ever need. 
+They take a CSS selector as an argument, which means you can easily duplicate the functionality from the other DOM selection functions.
+It seems like querySelectorAll should return an Array of elements. 
+In fact, it returns a nodeList, which offers a similar, but not identical API to Array.
+
+    let links = document.querySelectorAll('a');
+
+    //Works!
+    let linkCount = links.length;
+    let firstLink = links[0];
+
+    //Doesn't work!
+    links.forEach(function(link){
+        //do something with link
+    });
+
+Array methods like forEach, map, reduce, and so on, don't work. Luckily, its easy enough to convert a nodeList into an Array.
+
+    let links = document.querySelectorAll('a');
+    let arrayOfLinks = Array.from(links);
+
+
+*Traversing the DOM
+
+You can use the children, parent, nextElementSibling, and previousElementSibling attributes to find nodes relative to a node you have. This is called "traversing the DOM".
+
+Children
+
+    Use the children property to gets a nodeList of all the nodes contained in the node.
+    Use parent, nextElementSibling, and previousElementSibling to find nodes up the tree and across it.
+
+
+** Editing a Node
+
+A Node object has some useful properties and methods to let you access its contents and edit its appearance and content.
+
+innerHTML
+The sledgehammer approach - get or set the html text inside a node. This is really simple and sufficient in most cases. 
+
+Use 'remove()' to remove a node from a document.
+Create a node using document.createElement('tagname') and node.appendChild('variablename)
+
+
+
+
+
+
+
+
+** DOM Events
+
+As previously discussed, async programming is important in JS. DOM events allow us to make use of asnyc functions.
+
+Elements emit events based on user input. You can run code in response to them. Events include:
+
+Mouse events- click, mouseover, mouseout
+Keyboard events - keydown, keyup, etc
+Form events - submit, blur, focus, change,
+window events - load, hashchange, etc.
+touch events - touchstart, touchend, etc.
+
+Event Object
+
+You may be wondering what that event parameter is...
+
+An event object is passed to the event handler that describes what happened. The event object is different depending on the type of event.
+
+ 
+
+Events include:
+
+target - element where event occurred
+Mouse: clientX, clientY
+Keyboard: keyCode, shiftKey
+
+
+---Event Bubbling
+
+When an event is triggered on an element, it then gets fired on that element's parents, all the way to the top.
+
+event.target is the element where the event originally occurred
+event.currentTarget is the element running the event handler (this!).
+
+
+
+
